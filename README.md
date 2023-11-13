@@ -1,6 +1,8 @@
 # Water Quality System
 ## Proyecto de Sistemas Distribuidos
 
+![WATER QUALITY SYSTEM DARK](https://github.com/Uscateguito/proyecto_distribuidos/assets/103542486/b06f2b2d-ebff-4674-a5dc-61218894073a)
+
 ### Descripción del Proyecto
 El proyecto consta de varios programas diseñados para simular un sistema de monitoreo de sensores y un sistema de calidad. Los sensores generan datos simulados y los envían al sistema de calidad para su control. Los programas incluyen:
 
