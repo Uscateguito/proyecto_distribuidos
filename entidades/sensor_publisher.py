@@ -76,7 +76,8 @@ class Sensor:
             # Send the data as a multipart message
             self.publisher.send_multipart([self.topic.encode("UTF-8"),
                                            value.encode("UTF-8"),
-                                           current_time.encode("UTF-8")])
+                                           current_time.encode("UTF-8"),
+                                           str(self.interval).encode()])
             # Print the current time and a message indicating the data was sent
             print(current_time)
             print("Message sent:", value)

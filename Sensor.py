@@ -3,7 +3,7 @@ import sys
 import argparse
 import json
 
-from VersionAlejo.entidades.sensor_publisher import Sensor
+from entidades.sensor_publisher import Sensor
 
 
 # Verify arguments

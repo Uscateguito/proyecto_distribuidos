@@ -1,6 +1,6 @@
 import argparse
 
-from VersionAlejo.entidades.monitor_subscriber import Monitor
+from entidades.monitor_subscriber import Monitor
 
 
 def validate_arguments():

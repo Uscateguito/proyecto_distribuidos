@@ -15,6 +15,9 @@ PORT_PROXY = "5555"
 IP_ADDRESS_QUALITY_SYSTEM = "127.0.0.1"
 PORT_QUALITY_SYSTEM = "7777"
 
+IP_ADDRESS_HEALTH_CHECKER = "127.0.0.1"
+PORT_HEALTH_CHECKER = "8888"
+
 # end Global Values
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -43,6 +46,12 @@ class Monitor:
         self.publisher.connect(
             f"tcp://{IP_ADDRESS_QUALITY_SYSTEM}:{PORT_QUALITY_SYSTEM}"
         )
+        # Initialize health_informer socket
+        self.health_informer = self.context.socket(zmq.PUB)
+        self.health_informer.connect(
+            f"tcp://{IP_ADDRESS_HEALTH_CHECKER}:{PORT_HEALTH_CHECKER}"
+        )
+
         print(topic + " monitor running...")
 
     # end def
@@ -57,7 +66,7 @@ class Monitor:
             print(time_stamp, ": ", received_value)
             # Check if the received value is within the limits
             self.check_value(received_value, time_stamp)
-            # self.performance_test(time_stamp)
+            self.health_confirmation(message[3].decode())
 
         # end while
 
@@ -119,6 +128,11 @@ class Monitor:
         print(f"The time from occurrence to storage of the measurement is: {time_delta}")
 
     # end def
-
+    def health_confirmation(self, interval):
+        # Envío el tema, la fecha para y el intervalo obligatorio
+        self.health_informer.send_multipart([
+            self.topic.encode(),
+            interval.encode()
+        ])
 
 # end class
