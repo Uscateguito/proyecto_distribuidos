@@ -15,9 +15,11 @@ PORT_PUBLISHER = "9999"
 CONTEXT = zmq.Context()
 SUBSCRIBER = CONTEXT.socket(zmq.SUB)
 SUBSCRIBER.bind(f"tcp://{IP_ADDRESS}:{PORT_SUBSCRIBER}")
+time.sleep(1)
 SUBSCRIBER.setsockopt(zmq.SUBSCRIBE, "".encode())
 PUBLISHER = CONTEXT.socket(zmq.PUB)
 PUBLISHER.bind(f"tcp://{IP_ADDRESS}:{PORT_PUBLISHER}")
+time.sleep(1)
 LOCK_MENSAJES = threading.Lock()
 PID = 0
 

@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 
 import zmq
@@ -50,6 +51,7 @@ class Monitor:
         self.health_informer.connect(
             f"tcp://{IP_ADDRESS_HEALTH_CHECKER}:{PORT_HEALTH_CHECKER}"
         )
+        time.sleep(1)
 
         print(topic + " monitor running...")
 

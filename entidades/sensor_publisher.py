@@ -1,3 +1,5 @@
+import time
+
 import zmq
 import datetime
 import random
@@ -33,7 +35,7 @@ class Sensor:
         self.context = zmq.Context()
         self.publisher = self.context.socket(zmq.PUB)
         self.publisher.connect(f"tcp://{IP_ADDRESS}:{PORT}")
-
+        time.sleep(1)
         # Print a message indicating the sensor is running
         print(self.topic + " sensor running...")
 
