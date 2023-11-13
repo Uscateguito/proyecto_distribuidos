@@ -1,7 +1,19 @@
 import argparse
+import json
+import time
 
 from entidades.monitor_subscriber import Monitor
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Global Values
+
+datos_json = {"mensaje": []}
+
+
+# end Global Values
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def validate_arguments():
     # Create an argument parser
@@ -29,10 +41,18 @@ def main():
     # Create a monitor object and receive messages
     monitor = Monitor(args.type)
     try:
-        monitor.receive()
+        while True:
+            message = monitor.receive()
+            datos_json["mensaje"].append(message)
+            time.sleep(1)
+
     except KeyboardInterrupt:
         monitor.subscriber.close()
+        monitor.publisher.close()
+        monitor.health_informer.close()
         monitor.context.term()
+        with open(f'db/datos_monitor_{monitor.topic}.json', 'w') as file:
+            json.dump(datos_json, file)
     # end try
 
 

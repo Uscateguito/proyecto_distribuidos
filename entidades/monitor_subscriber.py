@@ -1,4 +1,3 @@
-import argparse
 from datetime import datetime
 
 import zmq
@@ -59,14 +58,17 @@ class Monitor:
     # Method: Receive
     def receive(self):
         # While the program is running, receive messages
-        while True:
+        try:
             message = self.subscriber.recv_multipart()
             received_value = message[1].decode()
             time_stamp = message[2].decode()
-            print(time_stamp, ": ", received_value)
             # Check if the received value is within the limits
             self.check_value(received_value, time_stamp)
             self.health_confirmation(message[3].decode())
+            print(f"{time_stamp}: {received_value}")
+            return f"{time_stamp}: {received_value}"
+        except Exception as e:
+            print("An error occurred:", str(e))
 
         # end while
 

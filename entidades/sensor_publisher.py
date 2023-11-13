@@ -1,10 +1,6 @@
 import zmq
-import time
 import datetime
 import random
-import sys
-import argparse
-import json
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -80,7 +76,9 @@ class Sensor:
                                            str(self.interval).encode()])
             # Print the current time and a message indicating the data was sent
             print(current_time)
-            print("Message sent:", value)
+            print(f"Message sent: {value}")
+            return f"Message sent: {value}"
+
         except Exception as e:
             print("An error occurred:", str(e))
         # end try

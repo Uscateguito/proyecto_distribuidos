@@ -5,6 +5,16 @@ import json
 
 from entidades.sensor_publisher import Sensor
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Global Values
+
+datos_json = {"mensaje": []}
+
+
+# end Global Values
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Verify arguments
 def verify_args():
@@ -61,13 +71,16 @@ def main():
     try:
         # Continuous loop to send sensor data
         while True:
-            sensor.send()
+            messages = sensor.send()
+            datos_json["mensaje"].append(messages)
             time.sleep(sensor.interval)
         # end while
     except KeyboardInterrupt:
         # Close the publisher and terminate the ZeroMQ context on KeyboardInterrupt
         sensor.publisher.close()
         sensor.context.term()
+        with open(f'db/datos_sensor_{sensor.topic}.json', 'w') as file:
+            json.dump(datos_json, file)
     # end try
 
 
