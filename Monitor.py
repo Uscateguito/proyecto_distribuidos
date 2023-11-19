@@ -8,7 +8,7 @@ from entidades.monitor_subscriber import Monitor
 
 # Global Values
 
-datos_json = {"mensaje": []}
+datos_json = {"mensaje": [], "delta": []}
 
 
 # end Global Values
@@ -43,7 +43,9 @@ def main():
     try:
         while True:
             message = monitor.receive()
-            datos_json["mensaje"].append(message)
+            components = message.split(',')
+            datos_json["mensaje"].append(components[0])
+            datos_json["delta"].append(components[1])
             time.sleep(1)
 
     except KeyboardInterrupt:

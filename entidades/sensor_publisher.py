@@ -72,11 +72,10 @@ class Sensor:
             value = self.generate_random_value()
             current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             # Send the data as a multipart message
-            self.publisher.send_multipart([self.topic.encode("UTF-8"),
-                                           value.encode("UTF-8"),
-                                           current_time.encode("UTF-8"),
-                                           str(self.interval).encode()])
+            (self.publisher.
+             send_string(f"{self.topic},{value},{current_time},{str(self.interval)}"))
             # Print the current time and a message indicating the data was sent
+            print(f"{self.topic}")
             print(current_time)
             print(f"Message sent: {value}")
             return f"Message sent: {value}"
