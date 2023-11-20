@@ -17,7 +17,7 @@ datos_json = {"mensaje": [], "delta": []}
 
 def validate_arguments():
     # Create an argument parser
-    parser = argparse.ArgumentParser(description="Sensor Argument Validator")
+    parser = argparse.ArgumentParser(description="Monitor Argument Validator")
     # Define the arguments
     parser.add_argument(
         "-t",
